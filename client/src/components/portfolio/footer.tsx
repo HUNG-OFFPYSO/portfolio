@@ -1,19 +1,9 @@
 import React from "react";
 import { FaLinkedin, FaGithub, FaTwitter, FaInstagram } from "react-icons/fa";
 import { portfolioData } from "@/data/portfolio-data";
+import { Link } from "wouter";
 
 export function Footer() {
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 80;
-      window.scrollTo({
-        top: offsetTop,
-        behavior: "smooth",
-      });
-    }
-  };
-
   const goToTop = () => {
     window.scrollTo({
       top: 0,
@@ -28,45 +18,39 @@ export function Footer() {
       <div className="container mx-auto px-4 md:px-8 text-center">
         <div className="flex flex-col md:flex-row items-center justify-between">
           <div className="mb-4 md:mb-0">
-            <button
-              onClick={goToTop}
-              className="text-2xl font-bold text-white font-sans focus:outline-none"
+            <Link
+              href="/"
+              className="text-2xl font-bold text-white font-sans"
             >
               Portfolio<span className="text-amber-500">.</span>
-            </button>
+            </Link>
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 mb-4 md:mb-0">
-            <button
-              onClick={() => scrollToSection("#hero")}
+            <Link
+              href="/"
               className="hover:text-primary transition-colors duration-300"
             >
               Trang chủ
-            </button>
-            <button
-              onClick={() => scrollToSection("#about")}
-              className="hover:text-primary transition-colors duration-300"
-            >
-              Giới thiệu
-            </button>
-            <button
-              onClick={() => scrollToSection("#skills")}
+            </Link>
+            <Link
+              href="/skills"
               className="hover:text-primary transition-colors duration-300"
             >
               Kỹ năng
-            </button>
-            <button
-              onClick={() => scrollToSection("#projects")}
+            </Link>
+            <Link
+              href="/projects"
               className="hover:text-primary transition-colors duration-300"
             >
               Dự án
-            </button>
-            <button
-              onClick={() => scrollToSection("#contact")}
+            </Link>
+            <Link
+              href="/contact"
               className="hover:text-primary transition-colors duration-300"
             >
               Liên hệ
-            </button>
+            </Link>
           </div>
 
           <div className="flex space-x-4">

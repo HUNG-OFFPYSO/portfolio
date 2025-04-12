@@ -1,14 +1,13 @@
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/portfolio/navbar";
-import { HeroSection } from "@/components/portfolio/hero-section";
-import { AboutSection } from "@/components/portfolio/about-section";
+import { SkillsSection } from "@/components/portfolio/skills-section";
 import { Footer } from "@/components/portfolio/footer";
 
-export default function Home() {
+export default function Skills() {
   useEffect(() => {
     // Set page title
-    document.title = "Portfolio | Trang Chủ";
+    document.title = "Portfolio | Kỹ Năng";
   }, []);
 
   return (
@@ -19,10 +18,9 @@ export default function Home() {
         exit={{ opacity: 0 }}
         className="min-h-screen"
       >
-        <Navbar activeSection="home" />
-        <main>
-          <HeroSection />
-          <AboutSection />
+        <Navbar activeSection="skills" />
+        <main className="pt-16"> {/* Add padding top to account for navbar */}
+          <SkillsSection />
         </main>
         <Footer />
       </motion.div>

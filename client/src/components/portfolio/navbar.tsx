@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Link } from "wouter";
 
 interface NavItem {
   label: string;
@@ -13,11 +14,10 @@ interface NavbarProps {
 }
 
 const navItems: NavItem[] = [
-  { label: "Trang chủ", href: "#hero" },
-  { label: "Giới thiệu", href: "#about" },
-  { label: "Kỹ năng", href: "#skills" },
-  { label: "Dự án", href: "#projects" },
-  { label: "Liên hệ", href: "#contact" },
+  { label: "Trang chủ", href: "/" },
+  { label: "Kỹ năng", href: "/skills" },
+  { label: "Dự án", href: "/projects" },
+  { label: "Liên hệ", href: "/contact" },
 ];
 
 export function Navbar({ activeSection }: NavbarProps) {
@@ -32,15 +32,10 @@ export function Navbar({ activeSection }: NavbarProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      const offsetTop = element.getBoundingClientRect().top + window.pageYOffset - 80;
-      window.scrollTo({
-        top: offsetTop,
-        behavior: "smooth",
-      });
-    }
+  // Helper function to check if a nav item is active
+  const isActive = (navHref: string) => {
+    if (navHref === "/" && activeSection === "home") return true;
+    return navHref.substring(1) === activeSection;
   };
 
   return (
@@ -50,33 +45,25 @@ export function Navbar({ activeSection }: NavbarProps) {
       }`}
     >
       <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <a
-          href="#hero"
+        <Link
+          href="/"
           className="text-2xl font-bold text-primary font-sans"
-          onClick={(e) => {
-            e.preventDefault();
-            scrollToSection("#hero");
-          }}
         >
           Portfolio<span className="text-amber-500">.</span>
-        </a>
+        </Link>
 
         {/* Desktop menu */}
         <div className="hidden lg:flex space-x-8">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               className={`hover:text-primary transition-colors duration-300 ${
-                activeSection === item.href.substring(1) ? "text-primary font-medium" : ""
+                isActive(item.href) ? "text-primary font-medium" : ""
               }`}
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToSection(item.href);
-              }}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </div>
 
@@ -97,20 +84,18 @@ export function Navbar({ activeSection }: NavbarProps) {
               </div>
               <div className="flex flex-col items-center justify-center h-full space-y-8 text-xl">
                 {navItems.map((item) => (
-                  <a
+                  <Link
                     key={item.href}
                     href={item.href}
                     className={`hover:text-primary transition-colors duration-300 ${
-                      activeSection === item.href.substring(1) ? "text-primary font-medium" : ""
+                      isActive(item.href) ? "text-primary font-medium" : ""
                     }`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection(item.href);
+                    onClick={() => {
                       document.querySelector<HTMLButtonElement>("[data-radix-collection-item]")?.click();
                     }}
                   >
                     {item.label}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
